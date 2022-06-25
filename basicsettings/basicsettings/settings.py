@@ -1,5 +1,6 @@
 from pathlib import Path
 import hidekey # 키 숨기기위해 임포트
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -120,7 +121,14 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  #base dir은 최상위 디렉토리 manage.py와 같이있는 
                           #'static폴더이름' 직접 디렉토리도 만들어줘야함 폴더 안에 img,css,js 등이 있음
+    os.path.join(BASE_DIR,'myapp','static'),  #이렇게도 가능 경로,경로,경로
+
 ]
+
+
+#static 파일들을 모두 모아서 배포함 한곳에다 모으는 작업을 해야함. 모으는 경로
+STATIC_ROOT = os.path.join('staticfiles')
+#python manage.py collectstatic 명령
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
