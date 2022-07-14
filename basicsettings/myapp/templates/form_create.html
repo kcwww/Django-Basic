@@ -1,0 +1,13 @@
+<h1>django form을 이용한 새 글 작성 페이지</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_ul }}
+    </table>
+    <input type="submit" value="새 글 생성하기">
+
+</form>
+
+<!--views.py에서 render의 세번째 인자로 넘긴 데이터는 html 내에서 중괄호두개에 감싸진 채로 표현-->
+<!--form.as_table 하면 자동으로 테이블 태그로 감싸져짐 as_p ,as_ul도 마찬가지-->

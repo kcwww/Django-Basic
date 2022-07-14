@@ -15,7 +15,16 @@ urlpatterns = [
     path('dashboards/',include('dashboard.urls')),
     path('payments/',include('payment.urls')),
 
-    
+    # html form을 이용해 블로그 객체 만들기
+    path('new/',views.new, name='new'), #name 스페이스는 html에서 중괄호 퍼센트 url 'name' 퍼센트 중괄호 // 이걸 연결
+    path('create/',views.create, name='create'),
+
+    # django form을 이용해 블로그 객체 만들기 #forms.py 만들어야함
+    path('formcreate/',views.formcreate, name='formcreate'),
+
+     # django modelform을 이용해 블로그 객체 만들기 #forms.py 만들어야함
+    path('modelformcreate/',views.modelformcreate, name='modelformcreate'),
+
 ]
 
 #http://127.0.0.1:8000/
