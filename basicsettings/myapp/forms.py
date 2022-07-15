@@ -12,5 +12,5 @@ class BlogForm(forms.Form):
 class BlogModelForm(forms.ModelForm):
     class Meta:
         model = Blog #만든 객체 클래스 따옴
-        #fields = '__all__'  이건 전부다
-        fields = [ 'title', 'body' ] # 특정 필드만
+        fields = '__all__'  #이건 전부다
+        #fields = [ 'title', 'body' ] # 특정 필드만

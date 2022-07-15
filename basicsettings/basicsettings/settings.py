@@ -130,6 +130,13 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join('staticfiles')
 #python manage.py collectstatic 명령
 
+MEDIA_ROOT = os.path.join(BASE_DIR,'media') # 사용자가 업로드한 파일을 'media'에 저장
+
+MEDIA_URL = '/media/' #사용자의 의해 사진이 업로드되면 접근할수 있는 url 경로
+
+
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

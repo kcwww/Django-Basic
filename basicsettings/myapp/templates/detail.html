@@ -1,0 +1,16 @@
+<!--blog_detail 객체를 받아옴-->
+
+<h1>제목</h1>
+{{ blog_detail.title }}
+
+<h2>날짜</h2>
+{{ blog_detail.date }}
+
+<h3>본문</h3>
+{{ blog_detail.body }}
+
+{% if blog_detail.photo %}
+    <!-- 사진 찍어주기 코드-->
+    <!-- blog_detail.photo.url 는 경로를 나타내어줌 --> 
+    <img src = "{{ blog_detail.photo.url }}" alt="" height="600">
+{% endif %}

@@ -5,6 +5,10 @@ from myapp import views
 #만든 app은 임포트하자.
 #include 추가함으로써 url 관리 용이
 
+#미디어 파일 추가 임포트
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.first),
@@ -25,6 +29,13 @@ urlpatterns = [
      # django modelform을 이용해 블로그 객체 만들기 #forms.py 만들어야함
     path('modelformcreate/',views.modelformcreate, name='modelformcreate'),
 
+    path('detail/<int:blog_id>', views.detail, name='detail') #detail 뒤 숫자가 정수형이고 해당 변수를 선언하여 뒤 views.detail로 변수를 넘겨준다.
+    # 127.0.0.1:8000/detail/1
+    # 127.0.0.1:8000/detail/2
+    # 127.0.0.1:8000/detail/3
+    # 127.0.0.1:8000/detail/4
 ]
 
-#http://127.0.0.1:8000/
+urlpatterns  += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# media 파일에 접근할 수 있는 url도 추가해주어야 함

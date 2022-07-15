@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404 # 리다이렉트, pk값을 이용해 특정모델 객체 하나만 가져옴
 from .models import Blog #내가 만든 객체 임포트
 from django.utils import timezone #자주 사용 임포트
 from .forms import BlogForm, BlogModelForm # django form, modelform
@@ -58,8 +58,8 @@ def formcreate(request):
 # django modelform을 이용해서 입력값을 받는다. 모델폼에 이미 객체가 있어 따로 객체를 선언하지 않아도 됨
 def modelformcreate(request):
 #입력된 데이터 저장
-    if (request.method == 'POST'):
-        form = BlogModelForm(request.POST)
+    if (request.method == 'POST' or request.method == 'FILES'):
+        form = BlogModelForm(request.POST, request.FILES)
         if (form.is_valid()):
             form.save() #modelform 같은 경우는 위와 다르게 save 매써드가 이미 존재하여 form.save()가 가능함
             return redirect(home)
@@ -69,3 +69,9 @@ def modelformcreate(request):
         #render()의 세번째 인자로 views.py 내의 데이터를 html에 넘겨줄 수 있다. 단, 딕셔너리 자료형
     return render(request,'form_create.html',{'form':form}) 
 
+def detail(request, blog_id):
+    # blog_id 번째 블로그 글을 데이터 베이스로부터 가지고옴
+    # blog_id 번째 블로그 글을 detail.html로 띄워주는 코드
+    # 인자를 2개 받아야함
+    blog_detail = get_object_or_404(Blog, pk=blog_id) #pk값이 id인 객체를 가져옴
+    return render(request, 'detail.html',{'blog_detail':blog_detail})

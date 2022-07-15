@@ -1,19 +1,19 @@
 <h1>Hello blog!</h1>
 
 <!--이 공간에는 블로그 글들의 목록을 보여줄 예정-->
-<!--{{ posts }}--> <!--QuerySet = DB로부터 전달받은 객체 목록(집합)-->
+<!--중괄호 posts 중괄호--> <!--QuerySet = DB로부터 전달받은 객체 목록(집합)-->
+<!--django가 만든 블로그 객체 순서에 해당하는 보이지 않는 id 중괄호중괄호 post.id 중괄호중괄호-->
+<!--post점 아이디 를 추가함으로 detail/아무개 의 url로 이동됨-->
 {% for post in posts %}
-    <h2>제목 : {{ post.title }}</h2>
+    <a href="{% url 'detail' post.id %}" ><h2>제목 : {{ post.title }}</h2></a>
     <h5>작성날짜 : {{ post.date }}</h5>
-    {{ post.body }}
-
+    
 {% endfor %}
 
-<br/>
-
-
-
+<br/><br/>
 
 <a href="{% url 'new' %}">html을 이용한 새 글 작성</a>
 
 <a href="{% url 'formcreate' %}">django form을 이용한 새 글 작성</a>
+
+<a href="{% url 'modelformcreate' %}">django modelform을 이용한 새 글 작성</a>
