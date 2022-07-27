@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'payment',
     'cart',
     'myapp',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -109,6 +110,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LOGIN_REDIRECT_URL = "/" #로그인이 성공했을시 이동되는 url
 
 
 # Static files (CSS, JavaScript, Images)

@@ -1,6 +1,6 @@
 from socket import fromshare
 from django import forms #장고에서 폼 임포트
-from .models import Blog #내가 만든 객체 임포트
+from .models import Blog, Comment #내가 만든 객체 임포트
 
 #django 폼
 class BlogForm(forms.Form):
@@ -14,3 +14,8 @@ class BlogModelForm(forms.ModelForm):
         model = Blog #만든 객체 클래스 따옴
         fields = '__all__'  #이건 전부다
         #fields = [ 'title', 'body' ] # 특정 필드만
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment #만든 객체 클래스 따옴
+        fields = ['comment']  #이것만 입력받음

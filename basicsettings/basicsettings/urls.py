@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from myapp import views
+from accounts import views as accounts_views #include를 이용해 관리하는게 더 좋음 후에 바꿔볼것
 
 #만든 app은 임포트하자.
 #include 추가함으로써 url 관리 용이
@@ -34,6 +35,13 @@ urlpatterns = [
     # 127.0.0.1:8000/detail/2
     # 127.0.0.1:8000/detail/3
     # 127.0.0.1:8000/detail/4
+
+    path('create_comment/<int:blog_id>', views.create_comment, name="create_comment"),
+
+    path('login/', accounts_views.login, name='login'),
+    path('logout/', accounts_views.logout, name='logout'),
+
+
 ]
 
 urlpatterns  += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

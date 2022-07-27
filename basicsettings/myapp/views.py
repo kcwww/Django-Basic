@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404 # 리다이렉트, pk값을 이용해 특정모델 객체 하나만 가져옴
 from .models import Blog #내가 만든 객체 임포트
 from django.utils import timezone #자주 사용 임포트
-from .forms import BlogForm, BlogModelForm # django form, modelform
+from .forms import BlogForm, BlogModelForm, CommentForm # django form, modelform
 
 
 
@@ -74,4 +74,17 @@ def detail(request, blog_id):
     # blog_id 번째 블로그 글을 detail.html로 띄워주는 코드
     # 인자를 2개 받아야함
     blog_detail = get_object_or_404(Blog, pk=blog_id) #pk값이 id인 객체를 가져옴
-    return render(request, 'detail.html',{'blog_detail':blog_detail})
+    
+    comment_form = CommentForm()
+    
+    return render(request, 'detail.html',{'blog_detail':blog_detail,'comment_form':comment_form}) #댓글 보여주기
+    
+def create_comment(request,blog_id):
+    filled_form = CommentForm(request.POST)
+
+    if (filled_form.is_valid()):
+        finished_form = filled_form.save(commit=False) #저장되기전 상태
+        finished_form.post = get_object_or_404( Blog, pk=blog_id ) #pk값이 id인 객체를 가져와서 댓글에 post에 넣음
+        finished_form.save() # 저장
+    
+    return redirect( detail, blog_id )
