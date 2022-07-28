@@ -15,7 +15,7 @@ class Blog(models.Model): #이미 있는 장고의 모델클래스 상속
 class Comment(models.Model):
     comment = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    post = models.ForeignKey( Blog, on_delete = models.CASCADE )
+    post = models.ForeignKey( Blog, on_delete = models.CASCADE ) #on_delete 이 연결되어 있는 객체가 삭제된다면, CASCADE 즉, 같이 삭제된다.
     # 어떤 게시물에 달려있는 댓글인지를 알 수 있는, 댓글이 달린 그 게시물이 쓰임
     def __str__(self):
         return self.comment #댓글로 표시
