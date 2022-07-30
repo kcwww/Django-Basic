@@ -88,3 +88,44 @@ def create_comment(request,blog_id):
         finished_form.save() # 저장
     
     return redirect( detail, blog_id )
+
+####################################################################
+
+def freehome(request):
+    freeposts = FreePost.objects.filter().order_by('-date')
+    return render(request,'free_index.html',{'freeposts':freeposts})
+
+def freepostcreate(request):
+    #request method가 POST일 경우
+        # 입력값 저장
+    if (request.method == 'POST' or request.method == 'FILES'):
+        form = FreePostForm(request.POST, request.FILES)
+        if form.is_valid():
+            unfinished = form.save(commit=False)
+            unfinished.author = request.user
+            unfinished.save()
+            return redirect('freehome')
+    #request method가 GET일 경우
+        #form 입력 html 띄우기
+    else:
+        form = FreePostForm()
+        return render(request, 'free_post_form.html', {'form':form})
+
+def freedetail(request,post_id):
+    post_detail = get_object_or_404(FreePost, pk=post_id)
+    comment_form = FreeCommentForm()
+    
+    return render(request,'free_detail.html',{'post_detail':post_detail,'comment_form':comment_form})
+
+#댓글 저장
+def new_freecreate(request,post_id):
+    #request method가 POST일 경우
+        # 입력값 저장
+    if (request.method == 'POST'):
+        filled_form = FreeCommentForm(request.POST)
+        if (filled_form.is_valid()):
+            finished_form = filled_form.save(commit=False)
+            finished_form.author = request.user
+            finished_form.post = get_object_or_404(FreePost,pk=post_id)
+            finished_form.save()
+            return redirect('freedetail',post_id)

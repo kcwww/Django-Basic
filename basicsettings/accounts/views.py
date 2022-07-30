@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import auth #특정 개체가 db에 이미 있는지 없는지 판단, 로그인 로그아웃 기능 수행 가능함
 # from django.contrib.auth.models import User 이곳에 관리자 계정이나 authenticate 매써드의 user
 from myapp import views
+from django.contrib.auth.models import User #회원가입을 위한 임포트
+
+
 def login(request):
     #POST 요청이 들어오면 로그인 처리를 해줌
     if (request.method == 'POST'):
@@ -20,3 +23,13 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect(views.home)
+
+def signup(request):
+    if (request.method == "POST"):
+        if (request.POST['password'] == request.POST['repeat']):
+            #회원가입
+            new_user = User.objects.create_user(username=request.POST['username'],password=request.POST['password'])
+            #로그인해서 홈으로 리다이렉션
+            auth.login(request, new_user)
+            return redirect('home')
+    return render(request,'register.html')

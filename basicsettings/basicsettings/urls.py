@@ -30,7 +30,7 @@ urlpatterns = [
      # django modelform을 이용해 블로그 객체 만들기 #forms.py 만들어야함
     path('modelformcreate/',views.modelformcreate, name='modelformcreate'),
 
-    path('detail/<int:blog_id>', views.detail, name='detail') #detail 뒤 숫자가 정수형이고 해당 변수를 선언하여 뒤 views.detail로 변수를 넘겨준다.
+    path('detail/<int:blog_id>', views.detail, name='detail'), #detail 뒤 숫자가 정수형이고 해당 변수를 선언하여 뒤 views.detail로 변수를 넘겨준다.
     # 127.0.0.1:8000/detail/1
     # 127.0.0.1:8000/detail/2
     # 127.0.0.1:8000/detail/3
@@ -40,8 +40,13 @@ urlpatterns = [
 
     path('login/', accounts_views.login, name='login'),
     path('logout/', accounts_views.logout, name='logout'),
-
-
+    path('signup',accounts_views.signup, name="signup"),
+    
+    path('free',views.freehome, name="freehome"),
+    path('freepostcreate',views.freepostcreate, name="freepostcreate"),
+    path('freedetail/<int:post_id>',views.freedetail, name="freedetail"),
+    path('freenew_create/<int:post_id>',views.new_freecreate, name="new_freecreate"),
+    
 ]
 
 urlpatterns  += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
