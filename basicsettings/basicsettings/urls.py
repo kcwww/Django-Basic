@@ -42,6 +42,9 @@ urlpatterns = [
     path('logout/', accounts_views.logout, name='logout'),
     path('signup',accounts_views.signup, name="signup"),
     
+    path('accounts/', include('allauth.urls')), # 소셜로그인
+
+
     path('free',views.freehome, name="freehome"),
     path('freepostcreate',views.freepostcreate, name="freepostcreate"),
     path('freedetail/<int:post_id>',views.freedetail, name="freedetail"),

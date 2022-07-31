@@ -1,5 +1,5 @@
 from pathlib import Path
-import hidekey # 키 숨기기위해 임포트
+from hidekey import MY_DB_PASSWORD, SECRET_MY_KEY # 키 숨기기위해 임포트
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = hidekey.key['important']
+SECRET_KEY = SECRET_MY_KEY
 #해쉬를 생성할때 만들어주는 문자열 이건 절대 배포X
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -34,7 +34,38 @@ INSTALLED_APPS = [
     'cart',
     'myapp',
     'accounts',
+
+    # The following apps are required:
+    #소셜 로그인 기능 pip install django-allauth
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.google',
 ]
+
+SITE_ID = 1 #소셜 로그인
+
+#소셜 로그인 어떤 수단을 통해서 로그인을 할건지
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend', #기존 장고 인증기능
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend', #추가한 소셜로그인 기능
+    
+]
+
+#로그인을 성공했을때 url
+LOGIN_REDIRECT_URL = '/'
+
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,12 +101,24 @@ WSGI_APPLICATION = 'basicsettings.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-#어떤데이터베이스를 쓸것인지 어디에 있는지
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
+
+# 외부 데이터 베이스 연결 pip install mysqlclient 해주어야함 sqlite 연결시에는 다시 바꾸어주어야함
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mysql',
+        'USER' : 'root',
+        'PASSWORD' : MY_DB_PASSWORD,
+        'HOST' : '127.0.0.1',
+        'PORT' : '3306',
+        }
 }
 
 

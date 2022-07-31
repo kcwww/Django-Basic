@@ -49,4 +49,21 @@
 </a>
 {% endif %}
 
+<!--페이지네이션-->
+{% if freeposts.has_previous %}
+<a href="?page=1" class="btn btn-success btn-icon-split">첫 페이지</a>
+<a href="?page={{ freeposts.previous_page_number }}" class="btn btn-success btn-icon-split">이전 페이지</a>
+{% endif %}
+
+{% if freeposts.has_next %}
+<a href="?page={{ freeposts.next_page_number }}" class="btn btn-success btn-icon-split">다음 페이지</a>
+<a href="?page={{ freeposts.paginator.num_pages }}" class="btn btn-success btn-icon-split">마지막 페이지</a>
+
+{% endif %}
+
+
+<span>{{ freeposts.number }}</span>
+<span>/</span>
+<span>{{ freeposts.paginator.num_pages }}</span>
+
 {% endblock %}

@@ -9,6 +9,10 @@
 <span class="badge rounded-pill bg-light">{{ post_detail.author.username }}</span>
 <p>{{ post_detail.body }}</p>
 
+{% if post_detail.photo %}
+<p><img src="{{ post_detail.photo.url }}" alt="" width="150px"></p>
+{% endif %}
+
 <br><hr>
 <!--댓글 목록-->
 {% for comment in post_detail.freecomment_set.all %}

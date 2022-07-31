@@ -1,4 +1,6 @@
 {% load static %}
+<!--소셜로 로그인시-->
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,13 +56,28 @@
                                                 id="password" name="password" placeholder="Password">
                                         </div>
                                         <br>
-                                        <input type="submit" value="Login" class="btn btn-success btn-user btn-block">
-                                           
-                                        
+                                        <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">   
                                     </form>
                                     <hr>
+                                    <br>
+                                    <form action="{% provider_login_url 'google' %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Login with google
+                                        </button>
+                                        
+                                      </form>
+                                      <br>
+                                      <form action="{% provider_login_url 'naver' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="submit" value="SIGN IN WITH NAVER" class="btn btn-success btn-user btn-block">
+                                     <br>
+                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="{% url 'signup' %}">Create an Account!</a>
+                                        <!--소셜로 로그인 폼으로 만들어 post매써드를 보내야함 버튼도 가능-->
+                                        
+                                          </form>
                                     </div>
                                 </div>
                             </div>

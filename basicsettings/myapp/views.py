@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404 # 리다이렉�
 from .models import Blog #내가 만든 객체 임포트
 from django.utils import timezone #자주 사용 임포트
 from .forms import BlogForm, BlogModelForm, CommentForm # django form, modelform
+from django.core.paginator import Paginator #페이지를 사용하기 위한 임포트
 
 
 
@@ -19,7 +20,13 @@ def home(request):
     #블로그 글들을 모조리 띄우는 코드
     #posts = Blog.objects.all() #  블로그 객체들 모조리 가져옴
     posts = Blog.objects.filter().order_by('-date') #정렬해서 가져옴, 날짜를 기준으로 가져와서 정렬 내림차순 최신글
+    paginator = Paginator(posts,5) # 페이지 끊어주기 5개씩 끊는다는말
+    pagnum = request.GET.get('page') #page 번호가 딕셔너리 형태로 존재. 따라서 GET 요청을 하였을때 얻은 page 번호를 get 하는것
+    posts = paginator.get_page(pagnum)
     return render(request,'index.html',{'posts':posts})
+
+
+
 
 # 블로그 글 작성 html을 보여주는 함수
 def new(request):
