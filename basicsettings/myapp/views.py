@@ -136,3 +136,22 @@ def new_freecreate(request,post_id):
             finished_form.post = get_object_or_404(FreePost,pk=post_id)
             finished_form.save()
             return redirect('freedetail',post_id)
+
+def delete(request,post_id):
+    delete_post = get_object_or_404(Post, pk=post_id)
+    delete_post.delete()
+    return redirect('home')
+
+def edit(request, post_id):
+    post = Post.objects.get(id=post_id)    # 수정하고자 하는 객체 갖고 와서
+    if request.method == "POST":            # 만일 request method가 POST라면
+        form = PostForm(request.POST, request.FILES)    # 입력 내용을 갖고와서
+        if form.is_valid():                             # 입력 내용 검수한 뒤
+            post.title = form.cleaned_data['title']     # 입력 내용 중 title을 수정하고자 하는 객체의 title에 저장!
+            post.body = form.cleaned_data['body']   # 입력 내용 중 body를 수정하고자 하는 객체의 body에 저장!
+            post.photo = form.cleaned_data['photo']      
+            post.save()                                 # 그리고 수정된 값을 저장한 객체는 저장
+            return redirect('/detail/'+str(post.pk))      # 수정이 되었으면 detail 페이지(해당 그 게시물 페이지)로 이동
+    else:                                        # 만일 request method가 GET이면
+        form = PostForm()                  
+        return render(request, 'form_edit.html',{'form':form})  # 입력 공간을 갖다준다

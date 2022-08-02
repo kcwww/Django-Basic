@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>글 수정</h1>
+<br>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+<table>
+    {{ form.as_p }}
+</table>
+
+<input type="submit" class="btn btn-success btn-icon-split btn-sm" style="height: 50px;width: 200px;" value="글 수정하기">
+ 
+</form>
+
+{% endblock %}

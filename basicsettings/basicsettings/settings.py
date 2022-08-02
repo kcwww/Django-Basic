@@ -1,5 +1,5 @@
 from pathlib import Path
-from hidekey import MY_DB_PASSWORD, SECRET_MY_KEY # 키 숨기기위해 임포트
+from hidekey import MY_DB_PASSWORD, SECRET_MY_KEY, MY_URL_ID # 키 숨기기위해 임포트
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -14,10 +14,17 @@ SECRET_KEY = SECRET_MY_KEY
 #해쉬를 생성할때 만들어주는 문자열 이건 절대 배포X
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+###########################배포할떄
+
+DEBUG = True #배포할때에는 False
 #어떤 식으로 서버를 열것인지 false 중요!
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    MY_URL_ID,
+] #나의 배포 아이디 작성
+
+
 
 
 # Application definition

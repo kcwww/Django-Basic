@@ -4,13 +4,18 @@
 
 <h2 class="alert alert-success">{{ post_detail.title }}</h2>
 
-<span class="badge rounded-pill bg-light">{{ post_detail.date }}</span>
+<span class="badge rounded-pill bg-light">{{ post_detail.date }}</span><span>{{ form.user }}</span><br><span>{{ form.pwd }}</span>
+<a href="{% url 'delete' post_detail.id %}">삭제하기</a>
+<a href="{% url 'edit' post_detail.id %}">수정하기</a>
+
 <br><hr>
 <p>{{ post_detail.body }}</p>
 
 {% if post_detail.photo %}
 <p><img src="{{ post_detail.photo.url }}" alt="" width="150px"></p>
 {% endif %}
+
+
 
 <br><hr>
 <!--댓글 목록-->

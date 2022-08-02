@@ -5,7 +5,7 @@ import sys
 
 import json # 파일을 잘 읽기위해서
 
-import urllib.request #url을 사용하기 위한 임포트
+import urllib.request #url을 사용하기 위한 임포트 pip install requests 해주어야 합니다
 from hidekey import SEARCH_MY_API_KEY_ID,SEARCH_MY_API_KEY_SECRET#키 숨기기
 
 
@@ -39,3 +39,27 @@ datas = pydata['items'] #json형식이고 items안에 원하는 데이터들이 
 for data in datas:  #검색된 내용들 필요없는 문자열을 지우고 출력
     data['title'] = re.sub('<b>|</b>', '', data['title'])
     print(data['title'])
+
+#검색기능
+def home(request):
+    if(request.method == 'POST'):
+        form = SearchForm(request.POST)
+        searchword = request.POST.get('search') #search로써 입력한 값을 가져옴
+        if(form.is_valid()):
+            search_url = 'https://api.themoviedb.org/3/search/movie?api_key='+ my_id +'&language=en-US&query='+ searchword +'&page=1&include_adult=true'
+            response = requests.get(search_url)
+            resdata = response.text
+            obj = json.loads(resdata)
+            condata = obj['results']
+            newform = SearchForm()
+            return render(request,'search.html',{'condata': condata,'searchword':searchword,'form':newform})
+
+    else:
+        form = SearchForm()
+
+        url = 'https://api.themoviedb.org/3/trending/movie/week?api_key='+ my_id
+        response = requests.get(url)
+        resdata = response.text
+        obj = json.loads(resdata) #json formatter 를 이용하여 편하기 식별가능함
+        condata = obj['results']
+        return render(request,'index.html',{'condata' : condata, 'form' : form })
