@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib import auth #특정 개체가 db에 이미 있는지 없는지 판단, 로그인 로그아웃 기능 수행 가능함
+from django.contrib import auth, messages #특정 개체가 db에 이미 있는지 없는지 판단, 로그인 로그아웃 기능 수행 가능함 메시지 기능까지
 # from django.contrib.auth.models import User 이곳에 관리자 계정이나 authenticate 매써드의 user
 from myapp import views
 from django.contrib.auth.models import User #회원가입을 위한 임포트
@@ -15,6 +15,7 @@ def login(request):
             auth.login(request, user)
             return redirect(views.home)
         else:
+            messages.info(request, "잘못된 아이디 또는 비밀번호 입니다.") #오류 메시지
             return render(request, 'login.html')
     #GET 요청이 들어오면 login form을 담고있는 login.html을 띄워주는 역할을 함
     else:

@@ -24,7 +24,14 @@ ALLOWED_HOSTS = [
     MY_URL_ID,
 ] #나의 배포 아이디 작성
 
+from django.contrib.messages import constants as messages_constants
+MESSAGE_LEVEL = messages_constants.DEBUG
 
+MESSAGE_TAGS = {
+    messages_constants.DEBUG: 'secondary',
+    messages_constants.ERROR: 'danger',
+    messages_constants.INFO: '',
+} #장고 에러 메시지 출력 기능
 
 
 # Application definition
